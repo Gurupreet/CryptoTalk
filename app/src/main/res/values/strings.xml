@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CryptoTalk</string>
+
+    <string name="crypto">Crypto</string>
+    <string name="alerts">Alerts</string>
+    <string name="news">News</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
