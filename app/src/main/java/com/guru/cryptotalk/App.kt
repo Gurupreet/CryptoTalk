@@ -22,7 +22,7 @@ class App: Application() {
         var cred: Credentials? = null
         var nfc = NumberFormat.getCurrencyInstance(Locale("en", "US"))
         var nf = NumberFormat.getNumberInstance(Locale("en", "US"))
-        var df = DecimalFormat("##.##")
+        var df = DecimalFormat("##.###")
     }
     override fun onCreate() {
         super.onCreate()

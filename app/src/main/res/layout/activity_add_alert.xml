@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="ETH, DAI.."
+                android:text="ETH"
                 android:inputType="textCapCharacters"
                 android:textAllCaps="true"
                 android:layout_toRightOf="@+id/from_token_logo"
@@ -143,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="DAI, TUSD.."
+                android:text="DAI"
                 android:inputType="textCapCharacters"
                 android:textAllCaps="true"
                 android:layout_toRightOf="@+id/from_token_logo"
@@ -268,15 +270,23 @@
             android:layout_marginRight="@dimen/margin_small"
             android:layout_marginLeft="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_small">
-
         <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:paddingLeft="@dimen/padding_medium"
-                android:gravity="center"
-                android:layout_marginLeft="35dp"
+                android:gravity="left"
+                android:textColor="@color/colorAccent"
+                android:text="ETH"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                android:paddingLeft="@dimen/padding_medium"
+                android:gravity="left"
                 android:textColor="@color/colorAccent"
                 android:text="Percentage change">
 
@@ -284,12 +294,12 @@
 
         <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:paddingLeft="@dimen/padding_medium"
                 android:text="Amount change"
-                android:layout_marginLeft="35dp"
+                android:gravity="left"
                 android:textColor="@color/colorAccent"
               />
 
@@ -319,31 +329,39 @@
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
                     android:textSize="@dimen/text_medium"
-                    android:padding="@dimen/padding_large"
+                    android:padding="@dimen/padding_medium"
                     android:layout_margin="@dimen/margin_medium"
                     android:background="@drawable/bg_edittext_stroke"
                     android:drawableRight="@drawable/ic_percent_solid"
-                    android:maxLength="4"
+                    android:maxLength="5"
                     android:drawablePadding="40dp"
                     android:drawableTint="@color/grey"
-                    android:hint="1.2">
+                    android:hint="0.0">
 
             </EditText>
 
-            <EditText
+            <TextView
+                    android:id="@+id/amount_change"
                     android:layout_width="0dp"
                     android:layout_weight="4"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
                     android:textSize="@dimen/text_medium"
-                    android:padding="@dimen/padding_large"
+                    android:padding="@dimen/padding_medium"
+                    android:text="0 ETH"
                     android:layout_margin="@dimen/margin_medium"
-                    android:background="@drawable/bg_edittext_stroke"
-                    android:hint="12">
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent">
 
-            </EditText>
+            </TextView>
         </LinearLayout>
 
+    <include
+            android:id="@+id/eth_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_below="@+id/percentage_layout"
+            layout="@layout/row_price_layout"></include>
         <TextView
                 android:id="@+id/error"
                 android:layout_marginLeft="@dimen/margin_small"

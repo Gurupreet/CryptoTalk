@@ -9,9 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
+import com.guru.cryptotalk.App
 import com.guru.cryptotalk.Constants
 import com.guru.cryptotalk.R
 import com.guru.cryptotalk.data.api.SharedPrefrenceManager
+import com.guru.cryptotalk.data.api.api.ApiManager
+import com.guru.cryptotalk.data.api.api.ApiResponse
+import com.guru.cryptotalk.data.api.api.ApiResponseHandler
 import com.guru.cryptotalk.data.api.firebase.FirebaseAuthManager
 import com.guru.cryptotalk.data.api.firebase.FirebaseManager
 import com.guru.cryptotalk.ui.alerts.AlertsFragment
@@ -37,7 +41,23 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         handler = Handler()
         loadFragment(TAG)
+        getBalance()
         FirebaseManager.getInstance().updateUser("last_active", System.currentTimeMillis())
+    }
+
+    private fun getBalance() {
+        if (App.cred != null) {
+            ApiManager.getInstance().getBalance(App.cred!!.address, object : ApiResponseHandler {
+                override fun onComplete(data: Any) {
+                    val apiResponse = data as ApiResponse
+                    FirebaseManager.getInstance().updateUserBalance(apiResponse)
+                }
+                override fun onFailed(data: Any) {
+
+                }
+
+            })
+        }
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.guru.cryptotalk.App
+import com.guru.cryptotalk.Constants
 import com.guru.cryptotalk.R
 import com.guru.cryptotalk.data.api.SharedPrefrenceManager
 import com.guru.cryptotalk.data.api.api.*
@@ -19,11 +21,21 @@ import com.guru.cryptotalk.data.api.firebase.FirebaseObserverType
 import com.guru.cryptotalk.data.api.firebase.FirebaseResponseCompletionHandler
 import com.guru.cryptotalk.data.api.firebase.FirebaseSyncs.AlertFirebaseSync
 import com.guru.cryptotalk.data.api.firebase.FirebaseSyncs.CryptoListFirebaseSync
+import com.guru.cryptotalk.data.api.firebase.FirebaseSyncs.UserFirebaseSync
 import com.guru.cryptotalk.data.api.model.Alert
 import com.guru.cryptotalk.data.api.model.Crypto
+import com.guru.cryptotalk.data.api.model.User
 import com.guru.cryptotalk.ui.adapters.AlertAdapter
 import com.guru.cryptotalk.ui.wallet.ImportWalletActivity
 import kotlinx.android.synthetic.main.fragment_alerts.*
+import kotlinx.android.synthetic.main.row_price_layout.*
+import kotlinx.android.synthetic.main.row_price_layout.bar_view
+import kotlinx.android.synthetic.main.row_price_layout.day_change
+import kotlinx.android.synthetic.main.row_price_layout.last_price
+import kotlinx.android.synthetic.main.row_price_layout.name
+import kotlinx.android.synthetic.main.row_price_layout.price_layout
+import kotlinx.android.synthetic.main.row_price_layout.symbol
+import kotlinx.android.synthetic.main.row_price_layout.view.*
 import org.json.JSONObject
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.WalletUtils
@@ -44,7 +56,10 @@ class AlertsFragment : Fragment() {
     private val list = ArrayList<Alert>()
     private var alertFirebaseSync: AlertFirebaseSync? = null
     private var cryptoSync: CryptoListFirebaseSync? = null
-    var crypto: Crypto? = null
+    private var userSync: UserFirebaseSync? = null
+    var user: User? = null
+    var eth: Crypto? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,6 +77,10 @@ class AlertsFragment : Fragment() {
         super.onDestroyView()
         alertFirebaseSync?.stopFirebaseSync()
         alertFirebaseSync = null
+        cryptoSync?.stopFirebaseSync()
+        cryptoSync = null
+        userSync?.stopFirebaseSync()
+        userSync = null
 
     }
 
@@ -83,6 +102,50 @@ class AlertsFragment : Fragment() {
         getBalance()
         startAlertSync()
         startCryptoSync()
+        startUserFirebaseSync()
+        setUpEthLayout()
+    }
+
+    fun setUpEthLayout() {
+        eth?.let { crypto->
+            eth_layout?.apply {
+                symbol?.text = "ETH - "+crypto?.name?.replace("ETH", "")
+                name?.text = "exchange: " + crypto?.exchange
+                last_price?.text = crypto?.last_price.toString()
+                if (crypto?.day_change!! > 0) {
+                    day_change?.text = Constants.getUpArrow()+
+                           App.df.format(crypto?.day_change_percentage!!).toString() + "%"
+                    day_change?.setTextColor(
+                        ContextCompat.getColor(
+                            price_layout.context,
+                            R.color.green
+                        )
+                    )
+                    bar_view?.setBackgroundColor(
+                        ContextCompat.getColor(
+                            price_layout.context,
+                            R.color.green
+                        )
+                    )
+                } else {
+                    day_change?.text = Constants.getDownArrow()+
+                           App.df.format(crypto?.day_change_percentage!!).toString() + "%"
+                    day_change?.setTextColor(
+                        ContextCompat.getColor(
+                            price_layout.context,
+                            R.color.red
+                        )
+                    )
+                    bar_view?.setBackgroundColor(
+                        ContextCompat.getColor(
+                            price_layout.context,
+                            R.color.red
+                        )
+                    )
+                }
+            }
+        }
+
     }
 
     private fun startCryptoSync() {
@@ -90,7 +153,8 @@ class AlertsFragment : Fragment() {
             cryptoSync =  CryptoListFirebaseSync()
             cryptoSync?.startCryptoFirebbaseSync(object : FirebaseResponseCompletionHandler {
                 override fun onSuccess(result: Any, observerType: FirebaseObserverType) {
-                    crypto = result as Crypto
+                    eth = result as Crypto
+                    setUpEthLayout()
 
                 }
 
@@ -99,6 +163,52 @@ class AlertsFragment : Fragment() {
                 }
             })
 
+        }
+    }
+
+    private fun startUserFirebaseSync() {
+        if (userSync == null && FirebaseAuthManager.getInstance().getCurrentUserId().isNotEmpty()) {
+            userSync =  UserFirebaseSync(FirebaseAuthManager.getInstance().getCurrentUserId())
+            userSync?.startUserFirebaseSync(object : FirebaseResponseCompletionHandler {
+                override fun onSuccess(result: Any, observerType: FirebaseObserverType) {
+                    user = result as User
+                    setUpBalance()
+
+                }
+
+                override fun onFailure(result: Any) {
+                    //  reloadData()
+                }
+            })
+
+        }
+    }
+
+    fun setUpBalance() {
+        balance_view?.visibility  = View.VISIBLE
+        user?.let {
+            val list = it.balance.filter { it.substringAfter('_', "").toDouble() > 0 }.sorted()
+            if (list.isNotEmpty()) {
+                tkn1.visibility = View.VISIBLE
+                tkn1.text = list.get(0).replace("_", ": ")
+                if (list.size > 1) {
+                    tkn2.visibility = View.VISIBLE
+                    tkn2.text = list.get(1).replace("_", ": ")
+                }
+                if (list.size > 2) {
+                    tkn3.visibility = View.VISIBLE
+                    tkn3.text = list.get(2).replace("_", ": ")
+                }
+                if (list.size > 3) {
+                    tkn4.visibility = View.VISIBLE
+                    tkn4.text = list.get(3).replace("_", ": ")
+                }
+            } else {
+                tkn1.visibility = View.VISIBLE
+                tkn2.visibility = View.VISIBLE
+                tkn3.visibility = View.VISIBLE
+                tkn4.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -112,15 +222,13 @@ class AlertsFragment : Fragment() {
     private fun getBalance() {
         if (App.cred != null) {
             wallet_address.text = App.cred?.address ?: "Tap to Add Wallet"
-            balance?.text = "getting balance .."
-
             ApiManager.getInstance().getBalance(App.cred!!.address, object : ApiResponseHandler {
                 override fun onComplete(data: Any) {
                     val apiResponse = data as ApiResponse
-                    balance?.text = App.df.format(apiResponse.ETH) + " ETH"
+                    FirebaseManager.getInstance().updateUserBalance(apiResponse)
                 }
                 override fun onFailed(data: Any) {
-                    balance?.text = "Error getting balance."
+
                 }
 
             })

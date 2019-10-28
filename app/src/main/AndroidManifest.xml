@@ -20,7 +20,8 @@
             android:supportsRtl="true"
             android:hardwareAccelerated="true"
             android:theme="@style/AppTheme.Light">
-        <activity android:name=".ui.alerts.AddAlertActivity"></activity>
+        <activity android:name=".ui.alerts.AddAlertActivity"
+                android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.wallet.ImportWalletActivity" />
         <activity android:name=".ui.login.LoginActivity">
 

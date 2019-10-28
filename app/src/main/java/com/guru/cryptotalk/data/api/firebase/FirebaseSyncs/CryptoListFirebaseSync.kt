@@ -16,7 +16,8 @@ class CryptoListFirebaseSync() : FirebaseSync() {
         val childEventListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, p1: String?) {
                 try {
-                    val crypto: Any? = snapshot?.getValue(Crypto::class.java)
+                    val crypto: Crypto? = snapshot?.getValue(Crypto::class.java)
+                    crypto?.symbol = snapshot.key
                     completionHandler.onSuccess(crypto!!, FirebaseObserverType.CHILD_ADDED)
                 } catch (e: Exception) {
                     completionHandler.onFailure("")
@@ -24,7 +25,8 @@ class CryptoListFirebaseSync() : FirebaseSync() {
             }
             override fun onChildChanged(snapshot: DataSnapshot, p1: String?) {
                 try {
-                    val crypto: Any? = snapshot?.getValue(Crypto::class.java)
+                    val crypto: Crypto? = snapshot?.getValue(Crypto::class.java)
+                    crypto?.symbol = snapshot.key
                     completionHandler.onSuccess(crypto!!,FirebaseObserverType.CHILD_CHANGED)
                 } catch (e: Exception) {
                     completionHandler.onFailure("")
@@ -33,7 +35,8 @@ class CryptoListFirebaseSync() : FirebaseSync() {
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 try {
-                    val crypto: Any? = snapshot?.getValue(Crypto::class.java)
+                    val crypto: Crypto? = snapshot?.getValue(Crypto::class.java)
+                    crypto?.symbol = snapshot.key
                     completionHandler.onSuccess(crypto!! ,FirebaseObserverType.CHILD_REMOVED)
                 } catch (e: Exception) {
                     completionHandler.onFailure("")

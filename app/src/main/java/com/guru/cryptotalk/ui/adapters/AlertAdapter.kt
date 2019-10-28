@@ -30,7 +30,11 @@ class AlertAdapter(val list: ArrayList<Alert>): RecyclerView.Adapter<AlertAdapte
 
     class AlertVH(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(alert: Alert) {
-            itemView.symbol.text = alert.request.from_tkn+" - "+ alert.request.to_tkn
+            if (alert.operation == Constants.OPERATION_SWAP) {
+                itemView.symbol.text = alert.request.from_tkn + " - " + alert.request.to_tkn
+            } else {
+                itemView.symbol.text = alert.request.from_tkn+" (Lend)"
+            }
             itemView.from_amount.text = alert.request.amt.toString()+" "+alert.request.from_tkn
        //     itemView.to_amount.text = alert.toAmount.toString()+" "+alert.toToken+" ("+Constants.getUpArrow()+" "+alert.percent.toString()+"%)"
             itemView.status.text = alert.status

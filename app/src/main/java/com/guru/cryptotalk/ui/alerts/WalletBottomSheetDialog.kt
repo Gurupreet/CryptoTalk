@@ -12,10 +12,13 @@ import org.web3j.crypto.WalletUtils
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.dialog_wallet_bottom_sheet.view.*
 import android.widget.Toast
-
-
-
-
+import com.guru.cryptotalk.App
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
 
 
 class WalletBottomSheetDialog : BaseBottomSheetFragment() {
@@ -30,6 +33,19 @@ class WalletBottomSheetDialog : BaseBottomSheetFragment() {
     override fun setupView(contentView: View) {
         parentView = contentView
         parentView.apply {
+            App.cred?.let { cred ->
+                title.text = "Change Wallet"
+                wallet_layout.visibility = View.VISIBLE
+                addr.text = cred.address
+                copy_addr.setOnClickListener {
+                    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+                    val clip = ClipData.newPlainText("addr", cred.address)
+                    clipboard!!.setPrimaryClip(clip)
+                }
+                view_ethersacn.setOnClickListener {
+                    openHash(cred.address)
+                }
+            }
             scan.setOnClickListener {
                 scanIntent()
             }
@@ -45,7 +61,7 @@ class WalletBottomSheetDialog : BaseBottomSheetFragment() {
                     dialog?.dismiss()
                 } else {
                     info_text.text = "Enter a valid Private key"
-                    info_text.setTextColor(ContextCompat.getColor(context!!, R.color.red))
+                    info_text.setTextColor(ContextCompat.getColor(context!!, com.guru.cryptotalk.R.color.red))
                 }
             }
         }
@@ -60,6 +76,13 @@ class WalletBottomSheetDialog : BaseBottomSheetFragment() {
         integrator.initiateScan()
     }
 
+    fun openHash(hash: String) {
+        val url = "https://etherscan.io/address/"+hash
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.intent.setPackage("com.android.chrome");
+        customTabsIntent.launchUrl(context, Uri.parse(url))
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {

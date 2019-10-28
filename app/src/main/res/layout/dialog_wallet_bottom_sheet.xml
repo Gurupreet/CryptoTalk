@@ -15,6 +15,54 @@
             android:gravity="center"
             android:layout_marginBottom="@dimen/margin_medium"
         ></TextView>
+    <RelativeLayout
+            android:id="@+id/wallet_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:visibility="gone"
+            >
+        <TextView
+                android:id="@+id/addr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/padding_medium"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:textSize="@dimen/text_medium"
+                android:text=""></TextView>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:layout_below="@id/addr">
+        <TextView
+                android:id="@+id/copy_addr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext_stroke"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_below="@+id/addr"
+                android:padding="@dimen/padding_medium"
+                android:layout_margin="@dimen/margin_small"
+                android:text="Copy balance"></TextView>
+        <TextView
+                android:id="@+id/view_ethersacn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edittext_stroke"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_below="@+id/addr"
+                android:padding="@dimen/padding_medium"
+                android:layout_margin="@dimen/margin_small"
+                android:layout_toRightOf="@+id/copy_addr"
+                android:text="View on Etherscan"></TextView>
+        </LinearLayout>
+    </RelativeLayout>
+
 
     <TextView
             android:id="@+id/info_text"

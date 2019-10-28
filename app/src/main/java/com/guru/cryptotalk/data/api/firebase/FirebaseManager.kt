@@ -2,6 +2,8 @@ package com.guru.cryptotalk.data.api.firebase
 
 import android.util.Log
 import com.google.firebase.database.*
+import com.guru.cryptotalk.App
+import com.guru.cryptotalk.data.api.api.ApiResponse
 import com.guru.cryptotalk.data.api.model.Alert
 
 class FirebaseManager {
@@ -65,5 +67,30 @@ class FirebaseManager {
             databaseRef.child("users").child(FirebaseAuthManager.getInstance().getCurrentUserId())
                 .updateChildren(update)
         }
+    }
+
+    fun updateUserBalance(apiResponse: ApiResponse) {
+        val list = ArrayList<String>()
+        list.add("BAT_"+ App.df.format(apiResponse.BAT))
+        list.add("ETH_"+App.df.format(apiResponse.ETH))
+        list.add("WETH_"+App.df.format(apiResponse.WETH))
+        list.add("KNC_"+App.df.format(apiResponse.KNC))
+        list.add("DAI_"+App.df.format(apiResponse.DAI))
+        list.add("OMG_"+App.df.format(apiResponse.OMG))
+        list.add("LINK_"+App.df.format(apiResponse.LINK))
+        list.add("ENJ_"+App.df.format(apiResponse.ENJ))
+        list.add("BNT_"+App.df.format(apiResponse.BNT))
+        list.add("TUSD_"+App.df.format(apiResponse.TUSD))
+        list.add("REP_"+App.df.format(apiResponse.REP))
+        list.add("ZRX_"+App.df.format(apiResponse.ZRX))
+        list.add("REN_"+App.df.format(apiResponse.REN))
+        list.add("MKR_"+App.df.format(apiResponse.MKR))
+        list.add("WBTC_"+App.df.format(apiResponse.WBTC))
+        list.add("USDC_"+App.df.format(apiResponse.USDC))
+        list.add("PAX_"+App.df.format(apiResponse.PAX))
+        list.add("USDT_"+App.df.format(apiResponse.USDT))
+        list.add("SNX_"+App.df.format(apiResponse.SNX))
+
+        updateUser("balance", list)
     }
 }

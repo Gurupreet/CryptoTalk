@@ -61,6 +61,8 @@ class ApiManager {
             apiInterface.startTxnSwap(params = map).enqueue(object : Callback<ApiResponse> {
                 override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                     apiResponseHandler.onFailed(t.message.toString())
+                    FirebaseManager.getInstance()
+                        .updateAlert(alertId, "status","error")
                 }
 
                 override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
@@ -74,6 +76,8 @@ class ApiManager {
                 apiInterface.startTxnLend(params = map).enqueue(object : Callback<ApiResponse> {
                     override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
                         apiResponseHandler.onFailed(t.message.toString())
+                        FirebaseManager.getInstance()
+                            .updateAlert(alertId, "status","error")
                     }
 
                     override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {

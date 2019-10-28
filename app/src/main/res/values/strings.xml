@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">CryptoTalk</string>
 
-    <string name="crypto">Crypto</string>
-    <string name="alerts">Alerts</string>
+    <string name="crypto">Home</string>
+    <string name="alerts">AI Alerts</string>
     <string name="news">News</string>
 
     <!-- TODO: Remove or change this placeholder text -->
