@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context=".ui.alerts.AddAlertActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_height="?attr/actionBarSize">
+
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:title="Add alert"
+            app:titleTextColor="@color/black" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/loader"
+            android:visibility="gone"></include>
+
+    <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_below="@+id/appbar"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/swap"
+                android:text="SWAP"
+                android:textColor="@color/colorAccent"
+                android:buttonTint="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:checked="true"
+                android:layout_margin="@dimen/margin_small"
+                android:layout_height="wrap_content"></androidx.appcompat.widget.AppCompatRadioButton>
+        <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/lend"
+                android:text="LEND"
+                android:textColor="@color/colorAccent"
+                android:buttonTint="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:layout_height="wrap_content"></androidx.appcompat.widget.AppCompatRadioButton>
+    </RadioGroup>
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            android:layout_below="@id/radio_group"
+            android:layout_margin="@dimen/margin_medium"
+            app:cardElevation="8dp">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small">
+        <ImageView
+                android:id="@+id/from_token_logo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:padding="@dimen/padding_small"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/eth">
+
+        </ImageView>
+
+        <EditText
+                android:id="@+id/from_token"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="ETH, DAI.."
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:layout_toRightOf="@+id/from_token_logo"
+                android:layout_toLeftOf="@+id/from_amount"
+                android:padding="@dimen/padding_small"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:textSize="@dimen/text_medium">
+
+        </EditText>
+
+        <EditText
+                android:id="@+id/from_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="0.00"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/padding_small"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:textSize="@dimen/text_medium">
+        </EditText>
+
+        <View
+                android:id="@+id/divider_line"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/light_grey"></View>
+
+        <ImageView
+                android:id="@+id/divider"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_exchange_alt_solid"
+                android:rotation="90"
+                android:background="@drawable/bg_accent_circle"
+                android:tint="@color/white"
+                android:layout_centerHorizontal="true"
+               android:padding="@dimen/padding_medium"
+                android:layout_below="@+id/from_amount"
+                android:layout_margin="@dimen/margin_small"></ImageView>
+
+
+        <ImageView
+                android:id="@+id/to_token_logo"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/divider"
+                android:padding="@dimen/padding_small"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/dai">
+
+        </ImageView>
+
+        <EditText
+                android:id="@+id/to_token"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="DAI, TUSD.."
+                android:inputType="textCapCharacters"
+                android:textAllCaps="true"
+                android:layout_toRightOf="@+id/from_token_logo"
+                android:layout_toLeftOf="@+id/from_amount"
+                android:layout_below="@id/divider"
+                android:padding="@dimen/padding_small"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:textSize="@dimen/text_medium">
+
+        </EditText>
+
+        <EditText
+                android:id="@+id/to_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="0.00"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:inputType="numberDecimal"
+                android:layout_below="@id/divider"
+                android:padding="@dimen/padding_small"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:textSize="@dimen/text_medium">
+        </EditText>
+
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+        <TextView
+                android:id="@+id/time_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select the time span for change"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@+id/card"
+                android:padding="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"></TextView>
+        <LinearLayout
+                android:id="@+id/time_layout"
+                android:layout_below="@+id/time_text"
+                android:layout_margin="@dimen/margin_small"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4">
+
+            <TextView
+                    android:id="@+id/min_5"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:background="@drawable/bg_button_blue_solid"
+                    android:paddingLeft="@dimen/padding_medium"
+                    android:paddingTop="5dp"
+                    android:paddingRight="@dimen/padding_medium"
+                    android:paddingBottom="5dp"
+                    android:text="5 min"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/white" />
+
+            <TextView
+                    android:id="@+id/min_15"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:background="@drawable/bg_button_blue_stroke"
+                    android:paddingLeft="@dimen/padding_medium"
+                    android:paddingTop="5dp"
+                    android:paddingRight="@dimen/padding_medium"
+                    android:paddingBottom="5dp"
+                    android:text="15 min"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/grey" />
+
+            <TextView
+                    android:id="@+id/min_30"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:background="@drawable/bg_button_blue_stroke"
+                    android:paddingLeft="@dimen/padding_medium"
+                    android:paddingTop="5dp"
+                    android:paddingRight="@dimen/padding_medium"
+                    android:paddingBottom="5dp"
+                    android:text="30 min"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/grey" />
+
+            <TextView
+                    android:id="@+id/min_60"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_small"
+                    android:background="@drawable/bg_button_blue_stroke"
+                    android:paddingLeft="@dimen/padding_medium"
+                    android:paddingTop="5dp"
+                    android:paddingRight="@dimen/padding_medium"
+                    android:paddingBottom="5dp"
+                    android:text="60 min"
+                    android:textSize="@dimen/text_medium"
+                    android:textColor="@color/grey" />
+        </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/percentage_text_layout"
+            android:layout_below="@+id/time_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                android:paddingLeft="@dimen/padding_medium"
+                android:gravity="center"
+                android:layout_marginLeft="35dp"
+                android:textColor="@color/colorAccent"
+                android:text="Percentage change">
+
+        </TextView>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                android:paddingLeft="@dimen/padding_medium"
+                android:text="Amount change"
+                android:layout_marginLeft="35dp"
+                android:textColor="@color/colorAccent"
+              />
+
+    </LinearLayout>
+        <LinearLayout
+                android:id="@+id/percentage_layout"
+                android:layout_below="@+id/percentage_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small">
+            <ImageView
+                    android:id="@+id/percent_arrow"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="@dimen/margin_small"
+                    android:src="@drawable/ic_arrow_alt_circle_up_regular"
+                    android:tint="@color/green"></ImageView>
+            <EditText
+                    android:id="@+id/percent_change"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="@dimen/text_medium"
+                    android:padding="@dimen/padding_large"
+                    android:layout_margin="@dimen/margin_medium"
+                    android:background="@drawable/bg_edittext_stroke"
+                    android:drawableRight="@drawable/ic_percent_solid"
+                    android:maxLength="4"
+                    android:drawablePadding="40dp"
+                    android:drawableTint="@color/grey"
+                    android:hint="1.2">
+
+            </EditText>
+
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:textSize="@dimen/text_medium"
+                    android:padding="@dimen/padding_large"
+                    android:layout_margin="@dimen/margin_medium"
+                    android:background="@drawable/bg_edittext_stroke"
+                    android:hint="12">
+
+            </EditText>
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/error"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_medium"
+                android:layout_above="@+id/done"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/done"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/mainButtonStyle"
+                android:layout_margin="@dimen/margin_small"
+                android:layout_alignParentBottom="true"
+                android:text="Create Alert"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                ></TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/token_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/card"
+            android:visibility="gone"
+            ></androidx.recyclerview.widget.RecyclerView>
+</RelativeLayout>

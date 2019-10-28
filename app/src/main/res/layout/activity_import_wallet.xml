@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.wallet.ImportWalletActivity">
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="8dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@color/colorAccent"
+            app:cardUseCompatPadding="true" >
+    <TextView
+            android:id="@+id/json"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Import JSON"
+            android:padding="@dimen/padding_medium"
+            android:layout_margin="@dimen/margin_medium"
+            android:drawableLeft="@drawable/ic_newspaper"
+            android:drawablePadding="@dimen/padding_medium"
+            ></TextView>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="8dp"
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@color/colorAccent"
+            app:cardUseCompatPadding="true" >
+        <TextView
+                android:id="@+id/barcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Scan barcode"
+                android:padding="@dimen/padding_medium"
+                android:layout_margin="@dimen/margin_medium"
+                android:drawableLeft="@drawable/ic_center_focus_weak_black_24dp"
+                android:drawablePadding="@dimen/padding_medium"
+                ></TextView>
+    </androidx.cardview.widget.CardView>
+    <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/key_input_layout"
+            android:hint="Add Private key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    <EditText
+        android:id="@+id/private_key"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
+            ></EditText>
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+            android:id="@+id/done"
+            android:text="Done"
+            android:gravity="center"
+            android:padding="@dimen/padding_medium"
+            android:layout_margin="@dimen/margin_medium"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+</LinearLayout>

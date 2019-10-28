@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_medium">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Wallet"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_medium"
+        ></TextView>
+
+    <TextView
+            android:id="@+id/info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add wallet via private key"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/margin_medium"></TextView>
+
+    <EditText
+            android:id="@+id/private_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edittext_stroke"
+            android:inputType="textPassword"
+            android:padding="@dimen/padding_large"
+            android:hint="Paste private key">
+    </EditText>
+
+
+
+    <Button
+        android:id="@+id/done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            style="@style/mainButtonStyle"
+            android:layout_margin="@dimen/margin_small"></Button>
+
+
+    <TextView
+            android:id="@+id/or"
+        android:text="OR"
+        android:layout_margin="@dimen/margin_extra_large"
+        android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+
+    <TextView
+            android:id="@+id/scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Scan Private Key"
+            style="@style/mainButtonStyle"
+            android:padding="@dimen/padding_medium"
+            android:foreground="?attr/selectableItemBackground"
+            android:drawableTint="@color/white"
+            android:drawableLeft="@drawable/ic_qrcode_solid"
+            android:layout_margin="@dimen/margin_small"></TextView>
+</LinearLayout>

@@ -1,14 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.alerts.AlertsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ui.alerts.AlertsFragment">
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:orientation="vertical"
+            android:background="@drawable/gradient_background_blue">
 
-</FrameLayout>
+        <LinearLayout
+                android:id="@+id/wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
+            <TextView
+                android:id="@+id/wallet_name"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/padding_small"
+                    android:text="My Wallet"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:id="@+id/wallet_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/copy"
+                    android:layout_below="@id/wallet_name"
+                    android:maxLength="20"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/padding_small"
+                    android:textStyle="bold"
+                    ></TextView>
+
+            <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="..."
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:padding="@dimen/padding_small"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_below="@+id/wallet_address"
+                    android:layout_toRightOf="@+id/balance_text">
+            </TextView>
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/bg"
+                android:background="@color/white"
+                app:cardCornerRadius="30dp"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginBottom="-20dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                android:orientation="vertical">
+            <TextView
+                    android:text="Active Calls"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_large"
+                    android:padding="@dimen/padding_small">
+
+            </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/alert_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="@dimen/margin_medium"></androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="20dp"
+            android:background="@color/colorAccent"
+            android:src="@drawable/ic_bell"
+            android:tint="@color/white"
+            ></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

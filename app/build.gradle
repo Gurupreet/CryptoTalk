@@ -13,17 +13,23 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.guru.cryptotalk"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [onesignal_app_id               : "83a0ad04-e35a-4a68-9377-5bff9d107e91",
+                                // Project nued from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE"]
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
@@ -48,7 +54,7 @@ dependencies {
     //architechture
     implementation "android.arch.lifecycle:extensions:$androidArchitectureVersion"
 
-    //koin for Dependency Injection
+    //koin for Dependency z
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
@@ -63,13 +69,17 @@ dependencies {
 
     //googleserivces
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation "com.journeyapps:zxing-android-embedded:4.0.0"
+    implementation 'com.google.zxing:core:3.3.2'
 
     //branch and onesignal
     implementation 'io.branch.sdk.android:library:2.12.1'
- //   implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
-//    implementation 'com.onesignal:OneSignal:3.10.2'
+    //   implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
+    implementation 'com.onesignal:OneSignal:[3.11.2, 3.99.99]'
+    implementation 'com.airbnb.android:lottie:3.0.1'
 
 
+    implementation 'org.web3j:core:4.2.0-android'
     //robinhood chart
     implementation 'com.robinhood.spark:spark:1.2.0'
 

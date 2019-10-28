@@ -65,12 +65,7 @@ class CryptoListFragment : Fragment() {
 
     private fun startCryptoSync() {
         if (cryptoSync == null) {
-            cryptoSync = when (position) {
-                0 -> CryptoListFirebaseSync("BTC")
-                1 -> CryptoListFirebaseSync("ETH")
-                2 -> CryptoListFirebaseSync("EOS")
-                else -> CryptoListFirebaseSync("OTHERS")
-            }
+            cryptoSync = CryptoListFirebaseSync()
             list.clear()
             cryptoListAdapter.notifyDataSetChanged()
             cryptoSync?.startCryptoFirebbaseSync(object : FirebaseResponseCompletionHandler {

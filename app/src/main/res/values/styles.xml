@@ -35,5 +35,20 @@
         <!--<item name="invertedColorAlternate2">@color/colorInvertedDarkThemeAlternate2</item>-->
         <item name="android:windowBackground">@color/colorPrimaryDarkTheme</item>
     </style>
+    
+    <style name="mainButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_button_blue_solid</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="editTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/bg_edittext_stroke</item>
+        <item name="android:padding">@dimen/padding_large</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+    </style>
 
 </resources>

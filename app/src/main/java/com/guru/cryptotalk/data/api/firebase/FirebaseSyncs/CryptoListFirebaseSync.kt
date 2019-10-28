@@ -8,9 +8,9 @@ import com.guru.cryptotalk.data.api.firebase.FirebaseResponseCompletionHandler
 import com.guru.cryptotalk.data.api.firebase.FirebaseSync
 import com.guru.cryptotalk.data.api.model.Crypto
 
-class CryptoListFirebaseSync(type: String) : FirebaseSync() {
+class CryptoListFirebaseSync() : FirebaseSync() {
     init {
-        queryRef = mDatabaseRef.child("symbols").child(type).orderByChild("volume_traded")
+        queryRef = mDatabaseRef.child("data/symbols").orderByChild("volume_traded")
     }
     fun startCryptoFirebbaseSync(completionHandler: FirebaseResponseCompletionHandler) {
         val childEventListener = object : ChildEventListener {
